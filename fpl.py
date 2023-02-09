@@ -1,10 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+import os
 
 POSITIONS = ['GK', 'DEF', 'MID', 'FWD', 'SUB']
-GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
-CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
 
 options = Options()
 options.add_argument("window-size=1980,960")
@@ -14,7 +13,8 @@ options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')        
 
 def get_fpl_scout_team():
-    driver = webdriver.Chrome(options=options)
+    options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
+    driver = webdriver.Chrome(executable_path=str(os.environ.get('CHROMEDRIVER_PATH')), options=options)
  
     url = 'https://www.fantasyfootballscout.co.uk/'
     driver.maximize_window()
