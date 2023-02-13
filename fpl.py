@@ -6,7 +6,6 @@ GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
 CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
 
 options = Options()
-options.add_experimental_option("prefs", {"profile.default_content_settings.cookies": 2})
 options.add_argument("window-size=1980,960")
 options.add_argument("--headless")
 options.add_argument('--disable-gpu')
