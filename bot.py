@@ -2,6 +2,8 @@ import os
 from dotenv import load_dotenv
 from fpl import get_fpl_scout_team
 import interactions
+from interactions.ext.files import command_send
+import io
 
 load_dotenv()
 
@@ -16,8 +18,10 @@ bot = interactions.Client(token=TOKEN)
 )
 async def scout(ctx: interactions.CommandContext):
     await ctx.send('Getting the FPL scout team...')
-
-    scout_team = get_fpl_scout_team()
-    await ctx.send(scout_team)
+    team_img = get_fpl_scout_team()
+    
+    with io.BytesIO(team_img) as fp:
+        file = interactions.File(filename='team.png', fp=fp)
+        await command_send(ctx, files=file)
 
 bot.start()
